@@ -21,7 +21,15 @@ namespace ProjetoSalario
 
         private void btnCadastrar_Click(object sender, RoutedEventArgs e)
         {
-            Funcionario funcionario = obterFuncionario();
+            Funcionario funcionario;
+
+            try { funcionario = obterFuncionario(); }
+            catch (FormatException fe)
+            {
+                MessageBox.Show(fe.Message, "Salário inválido inválido", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             funcionarios.Add(funcionario);
             dtgFuncionarios.ItemsSource = null;
             dtgFuncionarios.ItemsSource = funcionarios;
